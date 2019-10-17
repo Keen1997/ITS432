@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight, Alert, Dimensions } from 'react-native';
 import * as firebase from 'firebase';
 
+import ChatScreen from './ChatScreen'
+
 let width = Dimensions.get('window').width;
 
 export default class LoginScreen extends React.Component {
@@ -44,14 +46,6 @@ export default class LoginScreen extends React.Component {
             .catch((error) => {
                 Alert.alert(error.message)
             })
-    }
-
-    logout() {
-        firebase.auth().signOut().then(() => {
-            Alert.alert("You're already logout.")
-        }).catch((error) => {
-            Alert.alert(error.message)
-        })
     }
 
     renderButton() {
@@ -130,19 +124,7 @@ export default class LoginScreen extends React.Component {
 
             return (
                 <View style={styles.container}>
-
-                    <View style={styles.welcome}>
-                        <Text style={[styles.welcomeText, { fontSize: 18}]}>◝(　◠ ◡ ◠　)ﾉ</Text>
-                        <Text style={[styles.welcomeText, { fontStyle: 'italic', marginTop: 40  }]}>Welcome</Text>
-                        <Text style={[styles.welcomeText, { fontSize: 20, marginTop: 22 }]}>{user.email}</Text>
-                    </View>
-
-                    <TouchableHighlight
-                        style={styles.confirm}
-                        onPress={() => this.logout()}
-                    >
-                        <Text style={styles.confirmText}>Log Out</Text>
-                    </TouchableHighlight>
+                    <ChatScreen user={user}/>
                 </View>
             )
         }
